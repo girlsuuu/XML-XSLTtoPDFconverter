@@ -3,17 +3,13 @@ Generate a PDF file with input as XML and XSLT files
 
 ## Function
 
-***
-
 - upload a xml file and a xsl file to generate a PDF file on a webpage
 
 ## Demo Online
 
 ​	 	 [http://82.156.161.150:3000/front](http://82.156.161.150:3000/front)
 
-## Preparation 
-
-***
+## Preparation
 
 - Java 17 or higher
 
@@ -33,8 +29,6 @@ Generate a PDF file with input as XML and XSLT files
 
 ## How To Run
 
-***
-
 ```git clone https://github.com/girlsuuu/XML-XSLTtoPDFconverter.git```
 
 ``` cd XML-XSLTtoPDFconverter```
@@ -49,8 +43,6 @@ Visit the web on your browser with url :
 
 ## XML File Example
 
-***
-
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <note>
@@ -64,8 +56,6 @@ Visit the web on your browser with url :
  This file is simply for a test  to convert.  If in lack of your own xml file,  save this xml file  as an example in an optional position on your computer for later upload.
 
 ## XSLT File Example
-
-***
 
 ```xsl
 <?xml version="1.0" encoding="utf-8"?>
@@ -97,15 +87,11 @@ Visit the web on your browser with url :
 
 ## Expected Output
 
-***
-
 ```pdf
 Hello, Nancy!
 ```
 
 ## Thanks
-
-***
 
 [https://github.com/thelensky/xmlToPdfGenerator](https://github.com/thelensky/xmlToPdfGenerator)
 
