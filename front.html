@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XML to PDF Converter</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        height: 100vh;
+        background-color: #f0f0f0;
+        padding-top: 220px;
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+      form {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        margin-left: 30px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      input[type="file"] {
+        margin-bottom: 20px;
+      }
+      input[type="submit"] {
+        background: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: bold;
+      }
+      input[type="submit"]:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>XML to PDF Converter</h1>
+    <form
+      id="convertForm"
+      action="javascript:void(0);"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <label for="xmlFile">XML File:</label><br />
+      <input type="file" id="xmlFile" name="xmlFile" /><br />
+      <label for="xsltFile">XSLT File:</label><br />
+      <input type="file" id="xsltFile" name="xsltFile" /><br />
+      <input type="submit" id="convertBtn" value="Convert" />
+    </form>
+
+    <script>
+      $(document).ready(function () {
+        console.log("Document is ready");
+
+        $(document).on("submit", "#convertForm", function (e) {
+          console.log("Form is being submitted");
+          e.preventDefault();
+          console.log("已执行防刷新");
+
+          var formData = new FormData(this);
+
+          $.ajax({
+            type: "POST",
+            url: "http://localhost:3000/convert",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+              console.log("AJAX request succeeded");
+              setTimeout(function () {
+                console.log("Downloading file...");
+                downloadFile();
+              }, 2000);
+            },
+            error: function (data) {
+              console.log("AJAX request failed");
+              alert("出现错误");
+            },
+            complete: function () {
+              console.log("AJAX request completed");
+            },
+          });
+          return false;
+        });
+
+        function downloadFile() {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", "http://localhost:3000/download", true);
+          xhr.responseType = "blob";
+
+          xhr.onload = function () {
+            if (xhr.status === 200) {
+              var blob = xhr.response;
+              var link = document.createElement("a");
+              link.href = window.URL.createObjectURL(blob);
+              link.download = "result.pdf";
+              link.click();
+            }
+          };
+
+          xhr.send();
+        }
+      });
+    </script>
+  </body>
+</html>
